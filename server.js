@@ -10,6 +10,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 //parse incming JSON data
 app.use(express.json());
+//route to front end public folder
+app.use(express.static('public'));
 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -99,6 +101,13 @@ app.post('/api/animals', (req, res) => {
         res.json(animal);
     }
 });
+
+//11.3.4. adding html route 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(_dirname, './public/index.html'));
+});
+
+//this should always be last
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
