@@ -56,6 +56,10 @@ function createNewAnimal(body, animalsArray) {
     return animal;
 }
 
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
 function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
         return false;
@@ -89,6 +93,11 @@ app.get('/api/animals/:id', (req, res) => {
     }
 });
 
+//catch all/wildcard route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 //post route callback
 app.post('/api/animals', (req, res) => {
     // set id based on what the next index of the array will be
@@ -102,9 +111,14 @@ app.post('/api/animals', (req, res) => {
     }
 });
 
-//11.3.4. adding html route 
+//11.3.4. adding html route /animals
 app.get('/', (req, res) => {
     res.sendFile(path.join(_dirname, './public/index.html'));
+});
+
+//11.3.6
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
 
 //this should always be last
